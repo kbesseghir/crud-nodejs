@@ -44,7 +44,22 @@ app.patch('/api/courses/:courseId',async(req,res)=>{
 
     res.json(course)
 })
+app.get('/api/courses/:courseId',async(req,res)=>{
+    const courseId = req.params.courseId
+     const course =await  Course.findById(courseId).lean()
+    if(!course){
+        return res.send('course not found').status(404)
+    }
+    res.json(course)
+})
 
+
+app.delete('/api/courses/:courseId',(req, res) => {
+    const courseId = req.params.courseId
+     courses = courses.filter((course)=>course.id !== courseId)
+res.json('course deleted successfully')
+
+})
 
 app.listen(5000,()=>{
     console.log('listening on port 5000')
